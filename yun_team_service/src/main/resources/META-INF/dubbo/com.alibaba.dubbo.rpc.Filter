@@ -1,0 +1,1 @@
+myDubboExceptionFilter=com.myf.demo.filter.MyDubboExceptionFilter

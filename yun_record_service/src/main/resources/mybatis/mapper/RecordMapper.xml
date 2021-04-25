@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.myf.demo.mapper.RecordMapper">
+  <resultMap id="BaseResultMap" type="com.myf.demo.domain.Record">
+    <!--@mbg.generated-->
+    <!--@Table TB_RECORD-->
+    <id column="ID" jdbcType="DECIMAL" property="id" />
+    <result column="REGION_ID" jdbcType="DECIMAL" property="regionId" />
+    <result column="USER_ID" jdbcType="DECIMAL" property="userId" />
+    <result column="DOCTOR_ID" jdbcType="DECIMAL" property="doctorId" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="GENDER" jdbcType="DECIMAL" property="gender" />
+    <result column="BIRTH" jdbcType="TIMESTAMP" property="birth" />
+    <result column="ID_CARD" jdbcType="DECIMAL" property="idCard" />
+    <result column="HYPERTENSION" jdbcType="DECIMAL" property="hypertension" />
+    <result column="DIABETES" jdbcType="DECIMAL" property="diabetes" />
+    <result column="STATE" jdbcType="DECIMAL" property="state" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="DELETE_TIME" jdbcType="TIMESTAMP" property="deleteTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    ID, REGION_ID, USER_ID, DOCTOR_ID, "NAME", GENDER, BIRTH, ID_CARD, HYPERTENSION, 
+    DIABETES, "STATE", CREATE_TIME, UPDATE_TIME, DELETE_TIME
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from TB_RECORD
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    <!--@mbg.generated-->
+    delete from TB_RECORD
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" keyColumn="ID" keyProperty="id" parameterType="com.myf.demo.domain.Record" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into TB_RECORD (REGION_ID, USER_ID, DOCTOR_ID, 
+      "NAME", GENDER, BIRTH, 
+      ID_CARD, HYPERTENSION, DIABETES, 
+      "STATE", CREATE_TIME, UPDATE_TIME, 
+      DELETE_TIME)
+    values (#{regionId,jdbcType=DECIMAL}, #{userId,jdbcType=DECIMAL}, #{doctorId,jdbcType=DECIMAL}, 
+      #{name,jdbcType=VARCHAR}, #{gender,jdbcType=DECIMAL}, #{birth,jdbcType=TIMESTAMP}, 
+      #{idCard,jdbcType=DECIMAL}, #{hypertension,jdbcType=DECIMAL}, #{diabetes,jdbcType=DECIMAL}, 
+      #{state,jdbcType=DECIMAL}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{deleteTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" keyColumn="ID" keyProperty="id" parameterType="com.myf.demo.domain.Record" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into TB_RECORD
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="regionId != null">
+        REGION_ID,
+      </if>
+      <if test="userId != null">
+        USER_ID,
+      </if>
+      <if test="doctorId != null">
+        DOCTOR_ID,
+      </if>
+      <if test="name != null">
+        "NAME",
+      </if>
+      <if test="gender != null">
+        GENDER,
+      </if>
+      <if test="birth != null">
+        BIRTH,
+      </if>
+      <if test="idCard != null">
+        ID_CARD,
+      </if>
+      <if test="hypertension != null">
+        HYPERTENSION,
+      </if>
+      <if test="diabetes != null">
+        DIABETES,
+      </if>
+      <if test="state != null">
+        "STATE",
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME,
+      </if>
+      <if test="updateTime != null">
+        UPDATE_TIME,
+      </if>
+      <if test="deleteTime != null">
+        DELETE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="regionId != null">
+        #{regionId,jdbcType=DECIMAL},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="doctorId != null">
+        #{doctorId,jdbcType=DECIMAL},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null">
+        #{gender,jdbcType=DECIMAL},
+      </if>
+      <if test="birth != null">
+        #{birth,jdbcType=TIMESTAMP},
+      </if>
+      <if test="idCard != null">
+        #{idCard,jdbcType=DECIMAL},
+      </if>
+      <if test="hypertension != null">
+        #{hypertension,jdbcType=DECIMAL},
+      </if>
+      <if test="diabetes != null">
+        #{diabetes,jdbcType=DECIMAL},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleteTime != null">
+        #{deleteTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.myf.demo.domain.Record">
+    <!--@mbg.generated-->
+    update TB_RECORD
+    <set>
+      <if test="regionId != null">
+        REGION_ID = #{regionId,jdbcType=DECIMAL},
+      </if>
+      <if test="userId != null">
+        USER_ID = #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="doctorId != null">
+        DOCTOR_ID = #{doctorId,jdbcType=DECIMAL},
+      </if>
+      <if test="name != null">
+        "NAME" = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null">
+        GENDER = #{gender,jdbcType=DECIMAL},
+      </if>
+      <if test="birth != null">
+        BIRTH = #{birth,jdbcType=TIMESTAMP},
+      </if>
+      <if test="idCard != null">
+        ID_CARD = #{idCard,jdbcType=DECIMAL},
+      </if>
+      <if test="hypertension != null">
+        HYPERTENSION = #{hypertension,jdbcType=DECIMAL},
+      </if>
+      <if test="diabetes != null">
+        DIABETES = #{diabetes,jdbcType=DECIMAL},
+      </if>
+      <if test="state != null">
+        "STATE" = #{state,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleteTime != null">
+        DELETE_TIME = #{deleteTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.myf.demo.domain.Record">
+    <!--@mbg.generated-->
+    update TB_RECORD
+    set REGION_ID = #{regionId,jdbcType=DECIMAL},
+      USER_ID = #{userId,jdbcType=DECIMAL},
+      DOCTOR_ID = #{doctorId,jdbcType=DECIMAL},
+      "NAME" = #{name,jdbcType=VARCHAR},
+      GENDER = #{gender,jdbcType=DECIMAL},
+      BIRTH = #{birth,jdbcType=TIMESTAMP},
+      ID_CARD = #{idCard,jdbcType=DECIMAL},
+      HYPERTENSION = #{hypertension,jdbcType=DECIMAL},
+      DIABETES = #{diabetes,jdbcType=DECIMAL},
+      "STATE" = #{state,jdbcType=DECIMAL},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      DELETE_TIME = #{deleteTime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+</mapper>

@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.myf.demo.mapper.DoctorMapper">
+  <resultMap id="BaseResultMap" type="com.myf.demo.domain.Doctor">
+    <!--@mbg.generated-->
+    <!--@Table TB_DOCTOR-->
+    <id column="ID" jdbcType="DECIMAL" property="id" />
+    <result column="TEAM_ID" jdbcType="DECIMAL" property="teamId" />
+    <result column="USER_ID" jdbcType="DECIMAL" property="userId" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="STATE" jdbcType="DECIMAL" property="state" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="DELETE_TIME" jdbcType="TIMESTAMP" property="deleteTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    ID, TEAM_ID, USER_ID, "NAME", "STATE", CREATE_TIME, UPDATE_TIME, DELETE_TIME
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from TB_DOCTOR
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    <!--@mbg.generated-->
+    delete from TB_DOCTOR
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" keyColumn="ID" keyProperty="id" parameterType="com.myf.demo.domain.Doctor" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into TB_DOCTOR (TEAM_ID, USER_ID, "NAME", 
+      "STATE", CREATE_TIME, UPDATE_TIME, 
+      DELETE_TIME)
+    values (#{teamId,jdbcType=DECIMAL}, #{userId,jdbcType=DECIMAL}, #{name,jdbcType=VARCHAR}, 
+      #{state,jdbcType=DECIMAL}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{deleteTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" keyColumn="ID" keyProperty="id" parameterType="com.myf.demo.domain.Doctor" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into TB_DOCTOR
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="teamId != null">
+        TEAM_ID,
+      </if>
+      <if test="userId != null">
+        USER_ID,
+      </if>
+      <if test="name != null">
+        "NAME",
+      </if>
+      <if test="state != null">
+        "STATE",
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME,
+      </if>
+      <if test="updateTime != null">
+        UPDATE_TIME,
+      </if>
+      <if test="deleteTime != null">
+        DELETE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="teamId != null">
+        #{teamId,jdbcType=DECIMAL},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleteTime != null">
+        #{deleteTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.myf.demo.domain.Doctor">
+    <!--@mbg.generated-->
+    update TB_DOCTOR
+    <set>
+      <if test="teamId != null">
+        TEAM_ID = #{teamId,jdbcType=DECIMAL},
+      </if>
+      <if test="userId != null">
+        USER_ID = #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="name != null">
+        "NAME" = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        "STATE" = #{state,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleteTime != null">
+        DELETE_TIME = #{deleteTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.myf.demo.domain.Doctor">
+    <!--@mbg.generated-->
+    update TB_DOCTOR
+    set TEAM_ID = #{teamId,jdbcType=DECIMAL},
+      USER_ID = #{userId,jdbcType=DECIMAL},
+      "NAME" = #{name,jdbcType=VARCHAR},
+      "STATE" = #{state,jdbcType=DECIMAL},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      DELETE_TIME = #{deleteTime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+</mapper>

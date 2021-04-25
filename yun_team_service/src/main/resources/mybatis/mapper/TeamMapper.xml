@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.myf.demo.mapper.TeamMapper">
+  <resultMap id="BaseResultMap" type="com.myf.demo.domain.Team">
+    <!--@mbg.generated-->
+    <!--@Table TB_TEAM-->
+    <id column="ID" jdbcType="DECIMAL" property="id" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="TEAM_LEADER" jdbcType="DECIMAL" property="teamLeader" />
+    <result column="REGION_ID" jdbcType="DECIMAL" property="regionId" />
+    <result column="TOTAL" jdbcType="DECIMAL" property="total" />
+    <result column="STATE" jdbcType="DECIMAL" property="state" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="DELETE_TIME" jdbcType="TIMESTAMP" property="deleteTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    ID,"NAME",TEAM_LEADER, REGION_ID, TOTAL, "STATE", CREATE_TIME, UPDATE_TIME, DELETE_TIME
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from TB_TEAM
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    <!--@mbg.generated-->
+    delete from TB_TEAM
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" keyColumn="ID" keyProperty="id" parameterType="com.myf.demo.domain.Team" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into TB_TEAM ("NAME",TEAM_LEADER, REGION_ID, TOTAL,
+      "STATE", CREATE_TIME, UPDATE_TIME, 
+      DELETE_TIME)
+    values (#{name,jdbcType=VARCHAR},#{teamLeader,jdbcType=DECIMAL}, #{regionId,jdbcType=DECIMAL}, #{total,jdbcType=DECIMAL},
+      #{state,jdbcType=DECIMAL}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{deleteTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" keyColumn="ID" keyProperty="id" parameterType="com.myf.demo.domain.Team" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into TB_TEAM
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        "NAME",
+      </if>
+      <if test="teamLeader != null">
+        TEAM_LEADER,
+      </if>
+      <if test="regionId != null">
+        REGION_ID,
+      </if>
+      <if test="total != null">
+        TOTAL,
+      </if>
+      <if test="state != null">
+        "STATE",
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME,
+      </if>
+      <if test="updateTime != null">
+        UPDATE_TIME,
+      </if>
+      <if test="deleteTime != null">
+        DELETE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="teamLeader != null">
+        #{teamLeader,jdbcType=DECIMAL},
+      </if>
+      <if test="regionId != null">
+        #{regionId,jdbcType=DECIMAL},
+      </if>
+      <if test="total != null">
+        #{total,jdbcType=DECIMAL},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleteTime != null">
+        #{deleteTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.myf.demo.domain.Team">
+    <!--@mbg.generated-->
+    update TB_TEAM
+    <set>
+      <if test="name != null">
+       "NAME" = #{name,jdbcType=DECIMAL},
+      </if>
+      <if test="teamLeader != null">
+        TEAM_LEADER = #{teamLeader,jdbcType=DECIMAL},
+      </if>
+      <if test="regionId != null">
+        REGION_ID = #{regionId,jdbcType=DECIMAL},
+      </if>
+      <if test="total != null">
+        TOTAL = #{total,jdbcType=DECIMAL},
+      </if>
+      <if test="state != null">
+        "STATE" = #{state,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleteTime != null">
+        DELETE_TIME = #{deleteTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.myf.demo.domain.Team">
+    <!--@mbg.generated-->
+    update TB_TEAM
+    set "NAME" = #{name,jdbcType=VARCHAR},
+        TEAM_LEADER = #{teamLeader,jdbcType=DECIMAL},
+      REGION_ID = #{regionId,jdbcType=DECIMAL},
+      TOTAL = #{total,jdbcType=DECIMAL},
+      "STATE" = #{state,jdbcType=DECIMAL},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      DELETE_TIME = #{deleteTime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <select id="getAll" resultMap="BaseResultMap">
+
+    select
+    <include refid="Base_Column_List"></include>
+    from TB_USER
+    <trim prefix="where" prefixOverrides="and" suffixOverrides="and">
+      <if test="key != null">
+        <bind name="_key" value="'%' + key + '%'"/>
+        "NAME" like #{_key} and
+      </if>
+    </trim>
+    <if test="sortField != null and sortField != ''">
+      order by ${sortField} ${sortOrder}
+    </if>
+  </select>
+
+
+</mapper>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context" xmlns:dubbo="http://dubbo.apache.org/schema/dubbo"
+
+
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd http://dubbo.apache.org/schema/dubbo http://dubbo.apache.org/schema/dubbo/dubbo.xsd">
+
+    <!-- 服务提供方应用信息 -->
+    <dubbo:application name="yun_team_service">
+        <dubbo:parameter key="qos.enable" value="true"/>
+        <dubbo:parameter key="qos.accept.foreign.ip" value="false"/>
+        <dubbo:parameter key="qos.port" value="44444"/>
+    </dubbo:application>
+
+    <!-- 使用 zookeeper注册中心暴露服务地址 -->
+    <dubbo:registry protocol="zookeeper" address="127.0.0.1" port="2181"/>
+
+    <!-- 用dubbo协议在20880端口暴露服务 -->
+    <dubbo:protocol name="dubbo" port="20882"/>
+
+    <dubbo:provider filter="myDubboExceptionFilter,-exception" server="netty4"/>
+
+    <!-- 提供的服务接口 -->
+    <dubbo:service
+            interface="com.myf.demo.service.TeamService"
+            ref="teamService"/>
+
+    <!--和本地bean一样实现服务-->
+    <bean id="teamService" class="com.myf.demo.service.impl.TeamServiceImpl">
+    </bean>
+
+    <!--配置监控中心-->
+    <dubbo:monitor protocol="registry" />
+</beans>
