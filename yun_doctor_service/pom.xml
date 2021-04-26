@@ -22,6 +22,10 @@
         </dependency>
         <dependency>
             <groupId>org.example</groupId>
+            <artifactId>yun_base_service</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.example</groupId>
             <artifactId>yun_common</artifactId>
         </dependency>
     </dependencies>

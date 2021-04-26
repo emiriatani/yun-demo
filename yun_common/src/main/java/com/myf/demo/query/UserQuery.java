@@ -3,6 +3,8 @@ package com.myf.demo.query;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 /**
  * @ClassName com.myf.demo.query UserQuery
  * @Description
@@ -13,7 +15,9 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserQuery extends PageParam {
+public class UserQuery extends PageParam implements Serializable {
+
+    private static final long serialVersionUID = -4589242079151460125L;
 
     private String userNameQueryKey;
 

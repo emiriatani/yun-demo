@@ -3,11 +3,15 @@ package com.myf.demo.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.myf.demo.common.Constants;
 import com.myf.demo.common.MyPage;
+import com.myf.demo.domain.Doctor;
+import com.myf.demo.domain.Team;
 import com.myf.demo.domain.User;
+import com.myf.demo.dto.DoctorDTO;
+import com.myf.demo.dto.TeamDTO;
 import com.myf.demo.dto.UserDTO;
 import com.myf.demo.mapper.BaseMapper;
-import com.myf.demo.query.UserQuery;
 import com.myf.demo.service.BaseService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -71,7 +75,7 @@ public class BaseServiceImpl<Q, T, M> implements BaseService<Q, T, M> {
      * @return
      */
     @Override
-    public MyPage<M> selectByConditionPage(Q obj,M tem) {
+    public MyPage<M> selectByConditionPage(Q obj,Class<M> tem) {
 
         MyPage<M> tMyPage = new MyPage<>();
 
@@ -113,10 +117,9 @@ public class BaseServiceImpl<Q, T, M> implements BaseService<Q, T, M> {
             LOGGER.info("传入的排序方式：" + sortOrderStr);
 
             /*根据不同类型执行不同逻辑*/
-            if (obj instanceof UserQuery) {
-                sortFieldStr = selectTheUserQuerySortField(sortFieldStr);
-                setSortField.invoke(obj, sortFieldStr);
-            }
+            sortFieldStr = selectQuerySortField(sortFieldStr,tem);
+            setSortField.invoke(obj, sortFieldStr);
+
             /*分页查询数据*/
             PageHelper.startPage(pageIndex, pageSize);
             List<T> ts = baseMapper.selectByConditionPage(obj);
@@ -129,10 +132,8 @@ public class BaseServiceImpl<Q, T, M> implements BaseService<Q, T, M> {
                 M mdone = beanToBeanDTO(next,tem);
                 oneDTOS.add(mdone);
             }
-
             tMyPage.setTotal(tPageInfo.getTotal());
             tMyPage.setData(oneDTOS);
-
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
         } catch (IllegalAccessException e) {
@@ -140,44 +141,109 @@ public class BaseServiceImpl<Q, T, M> implements BaseService<Q, T, M> {
         } catch (InvocationTargetException e) {
             e.printStackTrace();
         }
-
         return tMyPage;
     }
 
-    private String selectTheUserQuerySortField(String sortField) {
-        switch (sortField) {
-            case "id":
-                sortField = "ID";
-                break;
-            case "username":
-                sortField = "USERNAME";
-                break;
-            case "loginName":
-                sortField = "LOGIN_NAME";
-                break;
-            case "account":
-                sortField = "STATUS";
-                break;
-            case "allocation":
-                sortField = "ALLOCATION_STATUS";
-                break;
-            case "createTime":
-                sortField = "CREATE_TIME";
-                break;
-            default:
-                sortField = "";
+    private String selectQuerySortField(String sortField,Class<M> clazz) {
+        String className = clazz.getName();
+        if (Constants.USERDTO.equals(className)){
+            switch (sortField) {
+                case "id":
+                    sortField = "ID";
+                    break;
+                case "username":
+                    sortField = "USERNAME";
+                    break;
+                case "loginName":
+                    sortField = "LOGIN_NAME";
+                    break;
+                case "account":
+                    sortField = "STATUS";
+                    break;
+                case "allocation":
+                    sortField = "ALLOCATION_STATUS";
+                    break;
+                case "createTime":
+                    sortField = "CREATE_TIME";
+                    break;
+                default:
+                    sortField = "";
+            }
+        }else if (Constants.TEAMDTO.equals(className)){
+            switch (sortField) {
+                case "id":
+                    sortField = "ID";
+                    break;
+                case "name":
+                    sortField = "NAME";
+                    break;
+                case "teamLeaderName":
+                    sortField = "TEAM_LEADER";
+                    break;
+                case "total":
+                    sortField = "TOTAL";
+                    break;
+                case "regionName":
+                    sortField = "REGION_ID";
+                    break;
+                case "stateName":
+                    sortField = "STATE";
+                    break;
+                case "createTime":
+                    sortField = "CREATE_TIME";
+                    break;
+                default:
+                    sortField = "";
+            }
+        }else if (Constants.DOCTORDTO.equals(className)){
+            switch (sortField) {
+                case "id":
+                    sortField = "ID";
+                    break;
+                case "name":
+                    sortField = "NAME";
+                    break;
+                case "teamName":
+                    sortField = "teamName";
+                    break;
+                case "userName":
+                    sortField = "userName";
+                    break;
+                case "stateName":
+                    sortField = "STATE";
+                    break;
+                case "createTime":
+                    sortField = "CREATE_TIME";
+                    break;
+                default:
+                    sortField = "";
+            }
         }
         return sortField;
     }
 
-
-    private <M> M beanToBeanDTO(T obj,M tem) {
-        if (obj instanceof User && tem instanceof UserDTO){
-            BeanUtils.copyProperties(obj, tem);
-            ((UserDTO) tem).setAccountStatus();
-            ((UserDTO) tem).setAllocationStatusTip();
+    private M beanToBeanDTO(T obj,Class<M> tem) {
+        M instance = null;
+        try {
+            instance = tem.newInstance();
+            if (obj instanceof User && instance instanceof UserDTO) {
+                BeanUtils.copyProperties(obj, instance);
+                ((UserDTO) instance).setAccountStatus();
+                ((UserDTO) instance).setAllocationStatusTip();
+            }else if (obj instanceof Team && instance instanceof TeamDTO){
+                BeanUtils.copyProperties(obj, instance);
+                ((TeamDTO) instance).setStateName();
+                ((TeamDTO) instance).checkTeamLeader();
+            }else if (obj instanceof Doctor && instance instanceof DoctorDTO){
+                BeanUtils.copyProperties(obj, instance);
+                ((DoctorDTO) instance).setStateName();
+            }
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
         }
-        return tem;
+        return instance;
     }
 
 

@@ -18,8 +18,4 @@
             <property name="reasonable" value="true"/>
         </plugin>
     </plugins>
-
-<!--    <mappers>-->
-<!--        <mapper resource="mybatis/mapper/UserMapper.xml"/>-->
-<!--    </mappers>-->
 </configuration>

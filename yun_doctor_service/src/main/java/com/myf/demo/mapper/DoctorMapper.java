@@ -1,17 +1,12 @@
 package com.myf.demo.mapper;
 
 import com.myf.demo.domain.Doctor;
+import com.myf.demo.query.DoctorQuery;
 
-public interface DoctorMapper {
-    int deleteByPrimaryKey(Long id);
+import java.util.List;
 
-    int insert(Doctor record);
+public interface DoctorMapper extends BaseMapper<DoctorQuery, Doctor> {
 
-    int insertSelective(Doctor record);
+    List<Doctor> getWithoutTeamDoctor();
 
-    Doctor selectByPrimaryKey(Long id);
-
-    int updateByPrimaryKeySelective(Doctor record);
-
-    int updateByPrimaryKey(Doctor record);
 }

@@ -66,9 +66,11 @@ public class UserController {
         if (!rpcInterfaceIsValid()) {
             return new MyPage<>();
         }
-
-        MyPage<UserDTO> myPage = userService.selectByConditionPage(userQuery, new UserDTO());
-
+        MyPage<UserDTO> myPage = userService.selectByConditionPage(userQuery, UserDTO.class);
+        for (UserDTO item :
+                myPage.getData()) {
+            LOGGER.info("查询出来的数据:" + item.toString());
+        }
         return myPage;
     }
 
@@ -78,7 +80,6 @@ public class UserController {
         if (!rpcInterfaceIsValid()) {
             return ResultUtils.fail(StatusCode.REQ_FAIL.getCode(), StatusCode.REQ_FAIL.getMsg());
         }
-
         LOGGER.info("需要添加的账号:" + userDTO);
         User user = new User();
         BeanUtils.copyProperties(userDTO, user);
@@ -90,7 +91,6 @@ public class UserController {
             LOGGER.info("添加账号失败");
             return ResultUtils.fail(StatusCode.REQ_FAIL.getCode(), StatusCode.REQ_FAIL.getMsg());
         }
-
     }
 
     @RequestMapping("/edit")

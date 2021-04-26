@@ -21,6 +21,10 @@ public class Constants {
     public static final Integer NO_REGISTER = 4001;
 
 
+    public static final String USERDTO = "com.myf.demo.dto.UserDTO";
+    public static final String TEAMDTO = "com.myf.demo.dto.TeamDTO";
+    public static final String DOCTORDTO = "com.myf.demo.dto.DoctorDTO";
+
     public static final String USERQUERY =  "com.myf.demo.query.UserQuery";
     public static final String USER = "com.myf.demo.domain.User";
 

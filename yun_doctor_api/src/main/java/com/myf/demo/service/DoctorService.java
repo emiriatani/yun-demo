@@ -1,19 +1,16 @@
 package com.myf.demo.service;
 
 import com.myf.demo.domain.Doctor;
-public interface DoctorService{
+import com.myf.demo.dto.DoctorDTO;
+import com.myf.demo.query.DoctorQuery;
+
+import java.util.List;
+
+public interface DoctorService extends BaseService<DoctorQuery, Doctor, DoctorDTO> {
 
 
-    int deleteByPrimaryKey(Long id);
+    List<DoctorDTO> getWithoutTeamDoctor();
 
-    int insert(Doctor record);
-
-    int insertSelective(Doctor record);
-
-    Doctor selectByPrimaryKey(Long id);
-
-    int updateByPrimaryKeySelective(Doctor record);
-
-    int updateByPrimaryKey(Doctor record);
 
 }
+

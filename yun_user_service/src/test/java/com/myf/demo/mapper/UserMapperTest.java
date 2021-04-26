@@ -31,7 +31,7 @@ public class UserMapperTest {
     @Test
     public void test(){
         UserQuery userQuery = new UserQuery(1, 10, "ID", "ASC", "1");
-        MyPage<UserDTO> myPage = userService.selectByConditionPage(userQuery, new UserDTO());
+        MyPage<UserDTO> myPage = userService.selectByConditionPage(userQuery, UserDTO.class);
         System.out.println(myPage.toString());
 
     }

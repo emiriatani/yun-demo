@@ -1,44 +1,41 @@
 package com.myf.demo.service.impl;
 
-import org.springframework.stereotype.Service;
-import javax.annotation.Resource;
-import com.myf.demo.mapper.DoctorMapper;
 import com.myf.demo.domain.Doctor;
+import com.myf.demo.dto.DoctorDTO;
+import com.myf.demo.mapper.DoctorMapper;
+import com.myf.demo.query.DoctorQuery;
 import com.myf.demo.service.DoctorService;
+import org.springframework.beans.BeanUtils;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+
 @Service
-public class DoctorServiceImpl implements DoctorService{
+public class DoctorServiceImpl extends BaseServiceImpl<DoctorQuery,Doctor, DoctorDTO> implements DoctorService {
 
     @Resource
     private DoctorMapper doctorMapper;
 
-    @Override
-    public int deleteByPrimaryKey(Long id) {
-        return doctorMapper.deleteByPrimaryKey(id);
-    }
 
     @Override
-    public int insert(Doctor record) {
-        return doctorMapper.insert(record);
-    }
+    public List<DoctorDTO> getWithoutTeamDoctor() {
 
-    @Override
-    public int insertSelective(Doctor record) {
-        return doctorMapper.insertSelective(record);
-    }
+        List<Doctor> withoutTeamDoctor = doctorMapper.getWithoutTeamDoctor();
+        Iterator<Doctor> iterator = withoutTeamDoctor.iterator();
+        List<DoctorDTO> doctorDTOS = new LinkedList<>();
 
-    @Override
-    public Doctor selectByPrimaryKey(Long id) {
-        return doctorMapper.selectByPrimaryKey(id);
-    }
+        while (iterator.hasNext()) {
+            Doctor next = iterator.next();
+            DoctorDTO doctorDTO = new DoctorDTO();
+            BeanUtils.copyProperties(next,doctorDTO);
+            doctorDTOS.add(doctorDTO);
+        }
 
-    @Override
-    public int updateByPrimaryKeySelective(Doctor record) {
-        return doctorMapper.updateByPrimaryKeySelective(record);
-    }
+        return doctorDTOS;
 
-    @Override
-    public int updateByPrimaryKey(Doctor record) {
-        return doctorMapper.updateByPrimaryKey(record);
     }
-
 }
+

@@ -33,7 +33,7 @@
     ]
     },
 { "id": "dwzz", iconCls: "fa fa-coffee",  text: "人员管理", children: [
-         { "id": "gsgl", iconCls: "fa fa-sitemap", text: "责任医生管理", url: "pages/1.html" },
+         { "id": "gsgl", iconCls: "fa fa-sitemap", text: "责任医生管理", url: "doctor/list.html" },
          { "id": "bmgl", iconCls: "fa fa-th-list", text: "部门管理", url: "pages/1.html" },
          { "id": "gwgl", iconCls: "fa fa-graduation-cap", text: "岗位管理", url: "pages/1.html" },
          { "id": "jsgl", iconCls: "fa fa-paw", text: "角色管理", url: "pages/1.html" },

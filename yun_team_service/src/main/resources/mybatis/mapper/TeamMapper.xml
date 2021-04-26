@@ -7,12 +7,17 @@
     <id column="ID" jdbcType="DECIMAL" property="id" />
     <result column="NAME" jdbcType="VARCHAR" property="name" />
     <result column="TEAM_LEADER" jdbcType="DECIMAL" property="teamLeader" />
+    <result column="teamLeaderName" jdbcType="VARCHAR" property="teamLeaderName"/>
     <result column="REGION_ID" jdbcType="DECIMAL" property="regionId" />
+    <result column="regionName" jdbcType="VARCHAR" property="regionName"/>
     <result column="TOTAL" jdbcType="DECIMAL" property="total" />
     <result column="STATE" jdbcType="DECIMAL" property="state" />
     <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
     <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="DELETE_TIME" jdbcType="TIMESTAMP" property="deleteTime" />
+  </resultMap>
+  <resultMap id="customizeResultMap" type="com.myf.demo.dto.TeamDTO">
+
   </resultMap>
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
@@ -139,15 +144,28 @@
       DELETE_TIME = #{deleteTime,jdbcType=TIMESTAMP}
     where ID = #{id,jdbcType=DECIMAL}
   </update>
-  <select id="getAll" resultMap="BaseResultMap">
-
+  <select id="selectByConditionPage" resultMap="BaseResultMap" parameterType="com.myf.demo.query.TeamQuery">
     select
-    <include refid="Base_Column_List"></include>
-    from TB_USER
+    TT.ID,
+    TT."NAME",
+    TD."NAME" AS "teamLeaderName",
+    TT.TEAM_LEADER,
+    TT.REGION_ID,
+    TT.TOTAL,
+    TR.PROVINCE||TR.CITY||TR.REGION||TR.DETAIL AS "regionName",
+    TT."STATE",
+    TT.CREATE_TIME,
+    TT.UPDATE_TIME,
+    TT.DELETE_TIME
+    from TB_TEAM TT
+    LEFT JOIN TB_REGION TR
+    on TT.REGION_ID = TR.ID
+    LEFT JOIN TB_DOCTOR TD
+    ON TT.TEAM_LEADER = TD.ID
     <trim prefix="where" prefixOverrides="and" suffixOverrides="and">
-      <if test="key != null">
-        <bind name="_key" value="'%' + key + '%'"/>
-        "NAME" like #{_key} and
+      <if test="teamLeaderNameKey != null">
+        <bind name="_key" value="'%' + teamLeaderNameKey + '%'"/>
+        TD."NAME" like #{_key} and
       </if>
     </trim>
     <if test="sortField != null and sortField != ''">

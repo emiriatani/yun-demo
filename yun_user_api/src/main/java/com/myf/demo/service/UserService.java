@@ -8,7 +8,5 @@ public interface UserService extends BaseService<UserQuery,User,UserDTO> {
 
     User selectByUserName(User record);
 
-
-
 }
 

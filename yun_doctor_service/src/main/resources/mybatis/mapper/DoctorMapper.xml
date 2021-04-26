@@ -6,7 +6,9 @@
     <!--@Table TB_DOCTOR-->
     <id column="ID" jdbcType="DECIMAL" property="id" />
     <result column="TEAM_ID" jdbcType="DECIMAL" property="teamId" />
+    <result column="teamName" jdbcType="VARCHAR" property="teamName"/>
     <result column="USER_ID" jdbcType="DECIMAL" property="userId" />
+    <result column="userName" jdbcType="VARCHAR" property="userName"/>
     <result column="NAME" jdbcType="VARCHAR" property="name" />
     <result column="STATE" jdbcType="DECIMAL" property="state" />
     <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
@@ -128,4 +130,38 @@
       DELETE_TIME = #{deleteTime,jdbcType=TIMESTAMP}
     where ID = #{id,jdbcType=DECIMAL}
   </update>
+
+  <select id="selectByConditionPage" resultMap="BaseResultMap" parameterType="com.myf.demo.query.DoctorQuery">
+    SELECT
+    TD.ID,
+    TD."NAME",
+    TD.TEAM_ID,
+    TT.NAME AS "teamName",
+    TD.USER_ID,
+    TU.USERNAME AS "userName",
+    TD."STATE",
+    TD.CREATE_TIME
+    FROM TB_DOCTOR TD
+    LEFT JOIN TB_TEAM TT
+    on TD.TEAM_ID = TT.ID
+    LEFT JOIN TB_USER TU
+    on TD.USER_ID = TU.ID
+    <trim prefix="WHERE" prefixOverrides="AND" suffixOverrides="AND">
+      <if test="doctorName != null">
+        <bind name="_key" value="'%' + doctorName + '%'"/>
+        TD."NAME" LIKE #{_key} AND
+      </if>
+    </trim>
+    <if test="sortField != null and sortField != ''">
+      ORDER BY ${sortField} ${sortOrder}
+    </if>
+  </select>
+  <select id="getWithoutTeamDoctor" resultMap="BaseResultMap">
+    SELECT
+    ID,
+    "NAME"
+    FROM TB_DOCTOR
+    WHERE TEAM_ID = 0 and "STATE" = 1
+  </select>
+
 </mapper>

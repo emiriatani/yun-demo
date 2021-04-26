@@ -37,11 +37,11 @@
          multiSelect="true"
          showPager="true"
          ajaxType="get"
-        >
-<!--         ajaxOptions="{-->
-<!--            async: true,-->
-<!--            contentType: 'application/json;charset=utf-8'-->
-<!--         }">-->
+    >
+        <!--         ajaxOptions="{-->
+        <!--            async: true,-->
+        <!--            contentType: 'application/json;charset=utf-8'-->
+        <!--         }">-->
 
         <div property="columns">
             <div type="checkcolumn"></div>
@@ -52,13 +52,14 @@
             <div field="total" width="120" headerAlign="center" align="center" allowSort="true">团队人数</div>
             <div field="regionName" width="120" headerAlign="center" align="center" allowSort="true">管辖区域</div>
             <div field="stateName" width="50" headerAlign="center" align="center" allowSort="true">团队状态</div>
-            <div field="createTime" width="80" headerAlign="center" align="center" allowSort="true" dateFormat="yyyy-MM-dd HH:mm:ss">
+            <div field="createTime" width="80" headerAlign="center" align="center" allowSort="true"
+                 dateFormat="yyyy-MM-dd HH:mm:ss">
                 创建时间
-            </div>
             </div>
         </div>
     </div>
-    <!--<div id="page_nav"></div>-->
+</div>
+<!--<div id="page_nav"></div>-->
 </div>
 <script src="../../static/assets/scripts/boot.js" type="text/javascript"></script>
 <script type="text/javascript" src="../../static/assets/scripts/jquery.min.js"></script>
@@ -149,7 +150,7 @@
     function search() {
         var key = mini.get("key").getValue();
 
-        grid.load({key: key});
+        grid.load({teamLeaderNameKey: key});
     }
 
     function onKeyEnter(e) {

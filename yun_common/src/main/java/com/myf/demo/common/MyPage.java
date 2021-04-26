@@ -16,14 +16,14 @@ import java.util.List;
  * @Version V1.0
  **/
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-public class MyPage<M> implements Serializable {
+@AllArgsConstructor
+public class MyPage<Object> implements Serializable {
 
     @NotNull
     private Long total;
     @NotNull
-    private List<M> data;
+    private List<Object> data;
 
 
 }

@@ -9,7 +9,7 @@ import com.myf.demo.common.MyPage;
  * @Date 2021/4/25 8:48
  * @Version V1.0
  **/
-public interface BaseService<Q,T,M> {
+public interface BaseService<Q, T, M> {
 
     int insert(T record);
 
@@ -25,9 +25,10 @@ public interface BaseService<Q,T,M> {
 
     /**
      * 通用分页查询接口
+     *
      * @param obj 查询信息和分页信息的封装对象
      * @return
      */
-    MyPage<M> selectByConditionPage(Q obj,M tem);
+    MyPage<M> selectByConditionPage(Q obj, Class<M> tem);
 
 }

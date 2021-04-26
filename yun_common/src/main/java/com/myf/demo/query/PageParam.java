@@ -3,6 +3,8 @@ package com.myf.demo.query;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 /**
  * @ClassName com.myf.demo.query PageParam
  * @Description
@@ -13,10 +15,11 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 @AllArgsConstructor
-public class PageParam {
+public class PageParam implements Serializable {
 
+    private static final long serialVersionUID = 2390556303505333386L;
     /*页码*/
-    private int  pageIndex = 1;
+    private int pageIndex = 1;
     /*每页大小*/
     private int pageSize = 10;
     /*排序字段*/
@@ -29,7 +32,7 @@ public class PageParam {
     }
 
     public void setPageIndex(int pageIndex) {
-        this.pageIndex = pageIndex;
+        this.pageIndex = pageIndex + 1;
     }
 
     public int getPageSize() {

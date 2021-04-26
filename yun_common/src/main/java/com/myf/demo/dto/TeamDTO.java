@@ -25,7 +25,6 @@ public class TeamDTO  implements Serializable {
      */
     private Long id;
 
-
     /*
     团队名
      */
@@ -36,12 +35,10 @@ public class TeamDTO  implements Serializable {
      */
     private Long teamLeader;
 
-
     /*
        团队长姓名
      */
     private String teamLeaderName;
-
 
     /**
      * 管辖区域id
@@ -63,6 +60,9 @@ public class TeamDTO  implements Serializable {
      */
     private Byte state;
 
+    /**
+     * 团队状态 文本提示
+     */
     private String stateName;
 
     /**
@@ -136,9 +136,15 @@ public class TeamDTO  implements Serializable {
 
     public void setStateName() {
         if (this.getState() == 0){
-            this.stateName = "否";
+            this.stateName = "休息中";
         }else if (this.getState() == 1){
-            this.stateName = "是";
+            this.stateName = "工作中";
+        }
+    }
+
+    public void checkTeamLeader(){
+        if (getTeamLeader() == -1){
+            setTeamLeaderName("未设置");
         }
     }
 
@@ -150,5 +156,13 @@ public class TeamDTO  implements Serializable {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String format = simpleDateFormat.format(createTime);
         this.createTime = format;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }
