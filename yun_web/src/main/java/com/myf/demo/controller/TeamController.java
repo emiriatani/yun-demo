@@ -1,13 +1,19 @@
 package com.myf.demo.controller;
 
 import com.myf.demo.common.MyPage;
+import com.myf.demo.common.Result;
+import com.myf.demo.common.StatusCode;
+import com.myf.demo.domain.Team;
 import com.myf.demo.dto.TeamDTO;
 import com.myf.demo.query.TeamQuery;
 import com.myf.demo.service.TeamService;
+import com.myf.demo.util.ResultUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.ObjectUtils;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -44,8 +50,24 @@ public class TeamController {
             LOGGER.info("查询出的团队信息:" + item);
         }
 
-
         return teamDTOMyPage;
+    }
+
+    @RequestMapping("/add")
+    public Result addTeam(@RequestBody TeamDTO teamDTO) {
+        if (!rpcInterfaceIsValid()) {
+            return ResultUtils.fail(StatusCode.REQ_FAIL.getCode(), StatusCode.REQ_FAIL.getMsg());
+        }
+        if (!ObjectUtils.isEmpty(teamDTO)) {
+            Team team = new Team();
+            BeanUtils.copyProperties(teamDTO, team);
+            int i = teamService.insertSelective(team);
+            if (i>0){
+                return ResultUtils.success(StatusCode.REQ_SUCCESS.getCode(), StatusCode.REQ_SUCCESS.getMsg());
+            }
+        }
+
+        return ResultUtils.fail(StatusCode.REQ_FAIL.getCode(), StatusCode.REQ_FAIL.getMsg());
     }
 
 

@@ -1,17 +1,13 @@
 package com.myf.demo.mapper;
 
 import com.myf.demo.domain.Region;
+import com.myf.demo.dto.RegionDTO;
+import com.myf.demo.query.RegionQuery;
 
-public interface RegionMapper {
-    int deleteByPrimaryKey(Long id);
+import java.util.List;
 
-    int insert(Region record);
+public interface RegionMapper extends BaseMapper<RegionQuery, Region> {
 
-    int insertSelective(Region record);
+    List<RegionDTO> getWithoutTeam();
 
-    Region selectByPrimaryKey(Long id);
-
-    int updateByPrimaryKeySelective(Region record);
-
-    int updateByPrimaryKey(Region record);
 }

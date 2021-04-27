@@ -14,6 +14,12 @@
     <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="DELETE_TIME" jdbcType="TIMESTAMP" property="deleteTime" />
   </resultMap>
+  <resultMap id="RegionDTOResultMap" type="com.myf.demo.dto.RegionDTO">
+    <id column="ID" jdbcType="DECIMAL" property="id"/>
+    <result column="address" jdbcType="VARCHAR" property="address"/>
+    <result column="STATE" jdbcType="DECIMAL" property="state"/>
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime"/>
+  </resultMap>
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
     ID, PROVINCE, CITY, REGION, DETAIL, "STATE", CREATE_TIME, UPDATE_TIME, DELETE_TIME
@@ -139,4 +145,13 @@
       DELETE_TIME = #{deleteTime,jdbcType=TIMESTAMP}
     where ID = #{id,jdbcType=DECIMAL}
   </update>
+    <select id="getWithoutTeam" resultMap="RegionDTOResultMap" resultType="com.myf.demo.dto.RegionDTO">
+    SELECT
+    ID,
+    PROVINCE||CITY||REGION||DETAIL AS "address",
+    "STATE",
+    CREATE_TIME
+    FROM TB_REGION
+    WHERE "STATE" = 1 AND TEAM_ID = -1
+    </select>
 </mapper>

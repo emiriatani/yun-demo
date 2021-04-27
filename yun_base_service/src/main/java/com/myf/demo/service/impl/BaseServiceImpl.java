@@ -222,7 +222,7 @@ public class BaseServiceImpl<Q, T, M> implements BaseService<Q, T, M> {
         return sortField;
     }
 
-    private M beanToBeanDTO(T obj,Class<M> tem) {
+    private <M> M beanToBeanDTO(T obj,Class<M> tem) {
         M instance = null;
         try {
             instance = tem.newInstance();

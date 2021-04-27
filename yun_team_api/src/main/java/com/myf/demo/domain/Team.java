@@ -11,6 +11,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Team implements Serializable {
+
     /**
     * 主键列
     */

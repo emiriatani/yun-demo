@@ -64,6 +64,7 @@ public class DoctorDTO implements Serializable {
      */
     private String createTime;
 
+
     public Long getId() {
         return id;
     }
@@ -139,6 +140,7 @@ public class DoctorDTO implements Serializable {
     public void setCreateTime(Date createTime) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String format = simpleDateFormat.format(createTime);
+        System.out.println("test...");
         this.createTime = format;
     }
 

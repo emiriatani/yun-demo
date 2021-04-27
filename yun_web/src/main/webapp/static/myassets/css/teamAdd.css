@@ -1,0 +1,6 @@
+#teamLeaderTd > span{
+    width: 370px;
+}
+#teamLeaderTd > span > span{
+    width: 340px;
+}

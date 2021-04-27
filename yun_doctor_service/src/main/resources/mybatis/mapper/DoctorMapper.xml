@@ -156,7 +156,7 @@
       ORDER BY ${sortField} ${sortOrder}
     </if>
   </select>
-  <select id="getWithoutTeamDoctor" resultMap="BaseResultMap">
+  <select id="getWithoutTeamDoctor" resultMap="BaseResultMap" resultType="com.myf.demo.domain.Doctor">
     SELECT
     ID,
     "NAME"

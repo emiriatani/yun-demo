@@ -44,15 +44,21 @@ public class DoctorController {
 
     @RequestMapping("/withoutTeam")
     public List<DoctorDTO> getAllWithoutTeamDoctor(){
+
         if (!rpcInterfaceIsValid()) {
             return new ArrayList<>();
         }
 
         List<DoctorDTO> withoutTeamDoctor = doctorService.getWithoutTeamDoctor();
 
+        for (DoctorDTO item :
+                withoutTeamDoctor) {
+
+            System.out.println(item.toString());
+        }
+
         return withoutTeamDoctor;
     }
-
 
     private boolean rpcInterfaceIsValid() {
         if (ObjectUtils.isEmpty(this.doctorService)) {

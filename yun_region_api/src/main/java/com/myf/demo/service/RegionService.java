@@ -1,21 +1,15 @@
 package com.myf.demo.service;
 
 import com.myf.demo.domain.Region;
+import com.myf.demo.dto.RegionDTO;
+import com.myf.demo.query.RegionQuery;
 
-public interface RegionService {
+import java.util.List;
+
+public interface RegionService extends BaseService<RegionQuery, Region,RegionDTO>{
 
 
-    int deleteByPrimaryKey(Long id);
-
-    int insert(Region record);
-
-    int insertSelective(Region record);
-
-    Region selectByPrimaryKey(Long id);
-
-    int updateByPrimaryKeySelective(Region record);
-
-    int updateByPrimaryKey(Region record);
+    public List<RegionDTO> getWithoutTeam();
 
 }
 
