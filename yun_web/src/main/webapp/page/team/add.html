@@ -26,7 +26,7 @@
             <tr>
                 <td style="width:80px;">团队名：</td>
                 <td style="width:150px;">
-                    <input name="name" class="mini-textbox" required="true" emptyText="请输入帐号"/>
+                    <input name="name" class="mini-textbox" required="true" emptyText="请输入团队名"/>
                 </td>
             </tr>
             <tr>
@@ -34,7 +34,7 @@
                 <td>
                     <input name="teamLeader" class="mini-combobox" valueField="id" textField="name"
                            url="/doctor/withoutTeam"
-                           onvaluechanged="onDeptChanged" required="true"
+                           required="true"
                            emptyText="请选择医生"
                     />
                 </td>
@@ -44,7 +44,7 @@
                 <td id="teamLeaderTd">
                     <input name="regionId" class="mini-combobox" valueField="id" textField="address"
                            url="/region/withoutTeam"
-                           onvaluechanged="onDeptChanged" required="true"
+                           required="true"
                            emptyText="请选择管辖区域"
                     />
                 </td>

@@ -1,10 +1,11 @@
 package com.myf.demo.domain;
 
-import java.io.Serializable;
-import java.util.Date;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.io.Serializable;
+import java.util.Date;
 
 @Data
 @AllArgsConstructor
@@ -54,6 +55,10 @@ public class Region implements Serializable {
      * 删除时间
      */
     private Date deleteTime;
+    /**
+     * 团队id
+     */
+    private Long teamId;
 
     private static final long serialVersionUID = 1L;
 }

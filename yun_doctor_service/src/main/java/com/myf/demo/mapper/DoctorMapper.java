@@ -9,4 +9,5 @@ public interface DoctorMapper extends BaseMapper<DoctorQuery, Doctor> {
 
     List<Doctor> getWithoutTeamDoctor();
 
+
 }

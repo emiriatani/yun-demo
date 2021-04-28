@@ -40,6 +40,11 @@ public class RegionDTO  implements Serializable {
      */
     private String createTime;
 
+    /**
+     * 团队id
+     */
+    private Long teamId;
+
     public Long getId() {
         return id;
     }
@@ -72,5 +77,13 @@ public class RegionDTO  implements Serializable {
         SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String format = s.format(createTime);
         this.createTime = format;
+    }
+
+    public Long getTeamId() {
+        return teamId;
+    }
+
+    public void setTeamId(Long teamId) {
+        this.teamId = teamId;
     }
 }

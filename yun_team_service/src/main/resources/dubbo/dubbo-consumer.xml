@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://dubbo.apache.org/schema/dubbo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://dubbo.apache.org/schema/dubbo http://dubbo.apache.org/schema/dubbo/dubbo.xsd">
+
+
+    <!--
+    check=false：配置当前服务消费者的统一规则，所有服务在启动时都不检查
+    -->
+    <dubbo:consumer filter="myDubboExceptionFilter,-exception" check="false" client="netty4"/>
+    <!--生成远程服务代理，可以和本地bean一样使用userService-->
+    <dubbo:reference
+            interface="com.myf.demo.service.UserService"
+            id="userService"
+            timeout="3000"/>
+    <dubbo:reference
+            interface="com.myf.demo.service.RegionService"
+            id="regionService"
+            timeout="3000"/>
+    <dubbo:reference
+            interface="com.myf.demo.service.DoctorService"
+            id="doctorService"
+            timeout="3000"/>
+
+</beans>

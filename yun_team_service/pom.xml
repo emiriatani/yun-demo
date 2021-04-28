@@ -18,16 +18,17 @@
     <dependencies>
         <dependency>
             <groupId>org.example</groupId>
-            <artifactId>yun_team_api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.example</groupId>
             <artifactId>yun_base_service</artifactId>
         </dependency>
         <dependency>
             <groupId>org.example</groupId>
-            <artifactId>yun_common</artifactId>
+            <artifactId>yun_doctor_service</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.example</groupId>
+            <artifactId>yun_region_service</artifactId>
+        </dependency>
+
     </dependencies>
 
 

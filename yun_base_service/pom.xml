@@ -26,12 +26,21 @@
         </dependency>
         <dependency>
             <groupId>org.example</groupId>
+            <artifactId>yun_region_api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.example</groupId>
             <artifactId>yun_common</artifactId>
         </dependency>
         <dependency>
             <groupId>org.example</groupId>
             <artifactId>yun_doctor_api</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.example</groupId>
+            <artifactId>yun_record_api</artifactId>
+        </dependency>
+        
     </dependencies>
 
 

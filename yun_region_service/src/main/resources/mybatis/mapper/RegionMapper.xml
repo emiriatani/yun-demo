@@ -13,16 +13,18 @@
     <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
     <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="DELETE_TIME" jdbcType="TIMESTAMP" property="deleteTime" />
+    <result column="TEAM_ID" jdbcType="DECIMAL" property="teamId"/>
   </resultMap>
   <resultMap id="RegionDTOResultMap" type="com.myf.demo.dto.RegionDTO">
     <id column="ID" jdbcType="DECIMAL" property="id"/>
     <result column="address" jdbcType="VARCHAR" property="address"/>
     <result column="STATE" jdbcType="DECIMAL" property="state"/>
     <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime"/>
+    <result column="TEAM_ID" jdbcType="DECIMAL" property="teamId"/>
   </resultMap>
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
-    ID, PROVINCE, CITY, REGION, DETAIL, "STATE", CREATE_TIME, UPDATE_TIME, DELETE_TIME
+    ID, PROVINCE, CITY, REGION, DETAIL, "STATE", CREATE_TIME, UPDATE_TIME, DELETE_TIME,TEAM_ID
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     <!--@mbg.generated-->
@@ -40,10 +42,10 @@
     <!--@mbg.generated-->
     insert into TB_REGION (PROVINCE, CITY, REGION, 
       DETAIL, "STATE", CREATE_TIME, 
-      UPDATE_TIME, DELETE_TIME)
+      UPDATE_TIME, DELETE_TIME,TEAM_ID)
     values (#{province,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, #{region,jdbcType=VARCHAR}, 
       #{detail,jdbcType=VARCHAR}, #{state,jdbcType=DECIMAL}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{updateTime,jdbcType=TIMESTAMP}, #{deleteTime,jdbcType=TIMESTAMP})
+      #{updateTime,jdbcType=TIMESTAMP}, #{deleteTime,jdbcType=TIMESTAMP},#{teamId,jdbcType=BIGINT})
   </insert>
   <insert id="insertSelective" keyColumn="ID" keyProperty="id" parameterType="com.myf.demo.domain.Region" useGeneratedKeys="true">
     <!--@mbg.generated-->
@@ -73,6 +75,9 @@
       <if test="deleteTime != null">
         DELETE_TIME,
       </if>
+      <if test="teamId != null">
+        TEAM_ID,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="province != null">
@@ -98,6 +103,9 @@
       </if>
       <if test="deleteTime != null">
         #{deleteTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="teamId != null">
+        #{teamId,jdbcType=BIGINT},
       </if>
     </trim>
   </insert>
@@ -129,6 +137,9 @@
       <if test="deleteTime != null">
         DELETE_TIME = #{deleteTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="teamId != null">
+        TEAM_ID = #{deleteTime,jdbcType=BIGINT},
+      </if>
     </set>
     where ID = #{id,jdbcType=DECIMAL}
   </update>
@@ -142,7 +153,8 @@
       "STATE" = #{state,jdbcType=DECIMAL},
       CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
       UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
-      DELETE_TIME = #{deleteTime,jdbcType=TIMESTAMP}
+      DELETE_TIME = #{deleteTime,jdbcType=TIMESTAMP},
+      TEAM_ID = #{teamId,jdbcType=BIGINT}
     where ID = #{id,jdbcType=DECIMAL}
   </update>
     <select id="getWithoutTeam" resultMap="RegionDTOResultMap" resultType="com.myf.demo.dto.RegionDTO">
@@ -150,7 +162,8 @@
     ID,
     PROVINCE||CITY||REGION||DETAIL AS "address",
     "STATE",
-    CREATE_TIME
+    CREATE_TIME,
+    TEAM_ID
     FROM TB_REGION
     WHERE "STATE" = 1 AND TEAM_ID = -1
     </select>

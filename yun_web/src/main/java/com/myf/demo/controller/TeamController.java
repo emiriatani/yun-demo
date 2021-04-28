@@ -4,7 +4,9 @@ import com.myf.demo.common.MyPage;
 import com.myf.demo.common.Result;
 import com.myf.demo.common.StatusCode;
 import com.myf.demo.domain.Team;
+import com.myf.demo.domain.User;
 import com.myf.demo.dto.TeamDTO;
+import com.myf.demo.dto.UserDTO;
 import com.myf.demo.query.TeamQuery;
 import com.myf.demo.service.TeamService;
 import com.myf.demo.util.ResultUtils;
@@ -15,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
@@ -45,11 +48,6 @@ public class TeamController {
 
         MyPage<TeamDTO> teamDTOMyPage = teamService.selectByConditionPage(teamQuery, TeamDTO.class);
 
-        for (TeamDTO item :
-                teamDTOMyPage.getData()) {
-            LOGGER.info("查询出的团队信息:" + item);
-        }
-
         return teamDTOMyPage;
     }
 
@@ -58,18 +56,50 @@ public class TeamController {
         if (!rpcInterfaceIsValid()) {
             return ResultUtils.fail(StatusCode.REQ_FAIL.getCode(), StatusCode.REQ_FAIL.getMsg());
         }
-        if (!ObjectUtils.isEmpty(teamDTO)) {
-            Team team = new Team();
-            BeanUtils.copyProperties(teamDTO, team);
-            int i = teamService.insertSelective(team);
-            if (i>0){
-                return ResultUtils.success(StatusCode.REQ_SUCCESS.getCode(), StatusCode.REQ_SUCCESS.getMsg());
-            }
+
+        if (ObjectUtils.isEmpty(teamDTO)) {
+            return ResultUtils.fail(StatusCode.REQ_FAIL.getCode(), StatusCode.REQ_FAIL.getMsg());
+        }
+
+        Team team = new Team();
+        BeanUtils.copyProperties(teamDTO, team);
+        int i = teamService.insertSelective(team);
+
+        if (i == 3) {
+            return ResultUtils.success(StatusCode.REQ_SUCCESS.getCode(), StatusCode.REQ_SUCCESS.getMsg());
         }
 
         return ResultUtils.fail(StatusCode.REQ_FAIL.getCode(), StatusCode.REQ_FAIL.getMsg());
     }
 
+
+    @RequestMapping("/query")
+    public TeamDTO queryTeam(@RequestParam("id") String id) {
+        if (!rpcInterfaceIsValid()) {
+            return new TeamDTO();
+        }
+        Team team = teamService.selectByPrimaryKey(Long.parseLong(id));
+        TeamDTO teamDTO = new TeamDTO();
+        BeanUtils.copyProperties(team, teamDTO);
+        return teamDTO;
+    }
+
+    @RequestMapping("/edit")
+    public Result edit(@RequestBody TeamDTO teamDTO){
+
+        Team team = new Team();
+        BeanUtils.copyProperties(teamDTO, team);
+
+        int update = teamService.updateByPrimaryKeySelective(team);
+
+        if (update > 0) {
+            return ResultUtils.success(StatusCode.REQ_SUCCESS.getCode(), StatusCode.REQ_SUCCESS.getMsg());
+        }
+
+        return ResultUtils.fail(StatusCode.REQ_FAIL.getCode(), StatusCode.REQ_FAIL.getMsg());
+
+
+    }
 
     private boolean rpcInterfaceIsValid() {
         if (ObjectUtils.isEmpty(this.teamService)) {
