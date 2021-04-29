@@ -32,7 +32,6 @@ public class Team implements Serializable {
      */
     private String teamLeaderName;
 
-
     /**
     * 管辖区域id
     */

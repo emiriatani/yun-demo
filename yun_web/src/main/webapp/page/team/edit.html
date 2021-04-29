@@ -31,7 +31,7 @@
                 <tr>
                     <td style="width:80px;">是否修改团队长：</td>
                     <td >
-                        <select id="isUpdateTeamLeader" name="teamLeaderState" class="mini-radiobuttonlist">
+                        <select id="isUpdateTeamLeader" name="updateTeamLeaderState" class="mini-radiobuttonlist">
                             <option value="0">YES</option>
                             <option value="1">NO</option>
                         </select>
@@ -40,17 +40,19 @@
                 <tr id="chooseTeamLeader" style="display: none">
                     <td>团队长：</td>
                     <td>
-                        <input name="teamLeaderName" class="mini-combobox" valueField="id" textField="name"
+                        <input id="teamLeaderCombobox"
+                               name="newTeamLeader" class="mini-combobox" valueField="id" textField="name"
                                url="/doctor/withoutTeam"
                                required="true"
                                emptyText="请选择医生"
                         />
                     </td>
+                    <td><input name="teamLeader" class="mini-hidden mini-textbox"  type="hidden"></td>
                 </tr>
                 <tr>
                     <td style="width:80px;">是否修改管辖区域：</td>
                     <td >
-                        <select id="isUpdateRegion" name="regionState" class="mini-radiobuttonlist">
+                        <select id="isUpdateRegion" name="updateRegionState" class="mini-radiobuttonlist">
                             <option value="0">YES</option>
                             <option value="1">NO</option>
                         </select>
@@ -59,12 +61,14 @@
                 <tr id="chooseRegion" style="display: none">
                     <td>管辖区域：</td>
                     <td id="teamLeaderTd">
-                        <input name="regionName" class="mini-combobox" valueField="id" textField="address"
+                        <input id="regionCombobox"
+                               name="newRegionId" class="mini-combobox" valueField="id" textField="address"
                                url="/region/withoutTeam"
                                required="true"
                                emptyText="请选择管辖区域"
                         />
                     </td>
+                    <td><input name="regionId" class="mini-hidden mini-textbox"  type="hidden"></td>
                 </tr>
             </table>
         </div>
@@ -105,6 +109,7 @@
             }
             if (this.getValue() == 1) {
                 $("#chooseTeamLeader").attr("style","display:none");
+                mini.getbyName("newTeamLeader").setValue(mini.getbyName("teamLeader").getValue());
             }
         });
         isUpdateRegion.on("valuechanged", function (e) {
@@ -113,7 +118,9 @@
                 $("#chooseRegion").removeAttr("style");
             }
             if (this.getValue() == 1){
+
                 $("#chooseRegion").attr("style","display:none");
+                mini.getbyName("newRegionId").setValue(mini.getbyName("regionId").getValue());
             }
         });
 
@@ -183,13 +190,8 @@
             CloseWindow("cancel");
         }
         //////////////////////////////////
-        function onDeptChanged(e) {
-            var deptCombo = mini.getbyName("dept_id");
-            var positionCombo = mini.getbyName("position");
-            var dept_id = deptCombo.getValue();
+        function onDoctorChanged(e) {
 
-            positionCombo.load("../data/AjaxService.jsp?method=GetPositionsByDepartmenId&id=" + dept_id);
-            positionCombo.setValue("");
         }
 
 

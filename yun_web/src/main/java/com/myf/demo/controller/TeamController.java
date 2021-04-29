@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
+import java.util.function.IntFunction;
 
 /**
  * @ClassName com.myf.demo.controller TeamController
@@ -72,7 +73,6 @@ public class TeamController {
         return ResultUtils.fail(StatusCode.REQ_FAIL.getCode(), StatusCode.REQ_FAIL.getMsg());
     }
 
-
     @RequestMapping("/query")
     public TeamDTO queryTeam(@RequestParam("id") String id) {
         if (!rpcInterfaceIsValid()) {
@@ -87,18 +87,20 @@ public class TeamController {
     @RequestMapping("/edit")
     public Result edit(@RequestBody TeamDTO teamDTO){
 
-        Team team = new Team();
-        BeanUtils.copyProperties(teamDTO, team);
+        /*首先判断是否修改了团队长或者管辖区域*/
+        Byte updateTeamLeaderState = teamDTO.getUpdateTeamLeaderState();
+        Byte updateRegionState = teamDTO.getUpdateRegionState();
 
-        int update = teamService.updateByPrimaryKeySelective(team);
 
-        if (update > 0) {
+        BeanUtils.copyProperties(teamDTO, teamDTO);
+        LOGGER.info("需要修改的团队信息:" + teamDTO);
+        //int update = teamService.updateByPrimaryKeySelective(teamDTO);
+
+     /*   if (update > 0) {
             return ResultUtils.success(StatusCode.REQ_SUCCESS.getCode(), StatusCode.REQ_SUCCESS.getMsg());
-        }
+        }*/
 
         return ResultUtils.fail(StatusCode.REQ_FAIL.getCode(), StatusCode.REQ_FAIL.getMsg());
-
-
     }
 
     private boolean rpcInterfaceIsValid() {

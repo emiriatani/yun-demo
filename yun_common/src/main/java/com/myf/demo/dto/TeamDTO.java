@@ -2,6 +2,7 @@ package com.myf.demo.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
@@ -14,7 +15,7 @@ import java.util.Date;
  * @Date 2021/4/23 15:34
  * @Version V1.0
  **/
-
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 public class TeamDTO  implements Serializable {
@@ -35,15 +36,37 @@ public class TeamDTO  implements Serializable {
      */
     private Long teamLeader;
 
+    /**
+     * 新团队长id
+     */
+    private Long newTeamLeader;
+
     /*
        团队长姓名
      */
     private String teamLeaderName;
 
     /**
+     * 用于修改团队长时的状态标识位
+     * 0修改, 1不修改
+     */
+    private Byte updateTeamLeaderState;
+
+    /**
      * 管辖区域id
      */
     private Long regionId;
+
+    /**
+     * 新管辖区域id
+     */
+    private Long newRegionId;
+
+    /**
+     * 用于修改管辖区域的状态标识位
+     * 0修改 1不修改
+     */
+    private Byte updateRegionState;
 
     /*
     管辖区域名称
@@ -59,6 +82,7 @@ public class TeamDTO  implements Serializable {
      * 团队状态 0无效1有效
      */
     private Byte state;
+
 
     /**
      * 团队状态 文本提示
@@ -164,5 +188,37 @@ public class TeamDTO  implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Long getNewTeamLeader() {
+        return newTeamLeader;
+    }
+
+    public void setNewTeamLeader(Long newTeamLeader) {
+        this.newTeamLeader = newTeamLeader;
+    }
+
+    public Byte getUpdateTeamLeaderState() {
+        return updateTeamLeaderState;
+    }
+
+    public void setUpdateTeamLeaderState(Byte updateTeamLeaderState) {
+        this.updateTeamLeaderState = updateTeamLeaderState;
+    }
+
+    public Long getNewRegionId() {
+        return newRegionId;
+    }
+
+    public void setNewRegionId(Long newRegionId) {
+        this.newRegionId = newRegionId;
+    }
+
+    public Byte getUpdateRegionState() {
+        return updateRegionState;
+    }
+
+    public void setUpdateRegionState(Byte updateRegionState) {
+        this.updateRegionState = updateRegionState;
     }
 }
