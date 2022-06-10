@@ -48,7 +48,7 @@
         <hibernate-validator.version>6.0.8.Final</hibernate-validator.version>
         <lombok.version>1.16.18</lombok.version>
         <hutool.version>5.6.3</hutool.version>
-        <dubbo.version>2.6.9</dubbo.version>
+        <dubbo.version>2.6.12</dubbo.version>
         <curator.version>2.3.0</curator.version>
         <netty.version>4.1.42.Final</netty.version>
         <jwt.version>0.9.0</jwt.version>
